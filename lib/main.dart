@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'calculation.dart';
+import 'feature/calculator/presentation/pages/calculator_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,136 +50,10 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>CalculatorCubit(),
+      create: (BuildContext context)=>CalculatorBloc(),
       child: CalculatorView(title: title),
     );
   }
 }
 
-class CalculatorView extends StatelessWidget {
-  const CalculatorView({Key? key, required this.title}) : super(key: key);
 
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(6),
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            BlocBuilder<CalculatorCubit,String>(
-                builder: (context, state){
-                  return Container(
-                    color: Colors.grey,
-                    height: 100,
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Text(
-                        state,
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                    ),
-                  );
-                }),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: numButton(context, '7')
-                ),
-                Expanded(
-                    child:numButton(context, '8')
-                ),
-                Expanded(
-                    child:numButton(context, '9')
-                ),
-                Expanded(
-                    child: operatorButton(context, 'x')
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: numButton(context, '4')
-                ),
-                Expanded(
-                    child: numButton(context, '5')
-                ),
-                Expanded(
-                    child: numButton(context, '6')
-                ),
-                Expanded(
-                    child: operatorButton(context, '/')
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: numButton(context, '1')
-                ),
-                Expanded(
-                    child: numButton(context, '2')
-                ),
-                Expanded(
-                    child: numButton(context, '3')
-                ),
-                Expanded(
-                    child: operatorButton(context, '+')
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: numButton(context, '0')
-                ),
-                Expanded(
-                    child: SizedBox(
-                      height: 80,
-                      child: OutlinedButton(
-                          onPressed: () => {context.read<CalculatorCubit>().clean()}, child: const Text('c')),
-                    )
-                ),
-                Expanded(
-                    child: SizedBox(
-                      height: 80,
-                      child: OutlinedButton(
-                          onPressed: () => {context.read<CalculatorCubit>().equal()}, child: const Text('=')),
-                    )
-                ),
-                Expanded(
-                    child: operatorButton(context, '-')
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-Widget numButton(BuildContext context, String num){
-  return SizedBox(
-      height: 80,
-      child: OutlinedButton(
-          onPressed: () => {context.read<CalculatorCubit>().numbers(num)},
-          child: Text(num)));
-}
-
-Widget operatorButton(BuildContext context, String op){
-  return SizedBox(
-      height: 80,
-      child: OutlinedButton(
-          onPressed: () => {context.read<CalculatorCubit>().operators(op)},
-          child: Text(op)));
-
-}
