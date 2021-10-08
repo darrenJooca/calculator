@@ -18,6 +18,24 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         super(const CalculatorState.result('0'));
 
 
+  @override
+  Stream<CalculatorState> mapEventToState(
+      CalculatorEvent event
+      ) async*{
+    yield event.map(numbers: (event){
+      _result = _calculatorUseCase.numbers(event.num);
+      return CalculatorState.result(_result);
+    }, operators:(event) {
+      _result = _calculatorUseCase.operators(event.op);
+      return CalculatorState.result(_result);
+    }, equal:(event) {
+      _result = _calculatorUseCase.equal();
+      return CalculatorState.result(_result);
+    }, clear:(event) {
+      _result = _calculatorUseCase.clear();
+      return CalculatorState.result(_result);
+    });
+  }
 
 
 }

@@ -1,8 +1,7 @@
 import 'package:calculator/feature/calculator/presentation/widgets/calculator_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../calculation.dart';
+import 'package:calculator/feature/calculator/presentation/bloc/calculator_bloc.dart';
 
 class CalculatorView extends StatelessWidget {
   const CalculatorView({Key? key, required this.title}) : super(key: key);
@@ -20,19 +19,21 @@ class CalculatorView extends StatelessWidget {
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            BlocBuilder<CalculatorBloc,String>(
+            BlocBuilder<CalculatorBloc,CalculatorState>(
                 builder: (context, state){
-                  return Container(
-                    color: Colors.grey,
-                    height: 100,
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Text(
-                        state,
-                        style: const TextStyle(fontSize: 30),
+                  return state.map(
+                      result: (result) =>Container(
+                        color: Colors.grey,
+                        height: 100,
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text(
+                            result.result,
+                            style: const TextStyle(fontSize: 30),
+                          ),
+                        ),
                       ),
-                    ),
                   );
                 }),
             const SizedBox(height: 10),
@@ -93,14 +94,14 @@ class CalculatorView extends StatelessWidget {
                     child: SizedBox(
                       height: 80,
                       child: OutlinedButton(
-                          onPressed: () => {context.read<CalculatorBloc>().add(Clear())}, child: const Text('c')),
+                          onPressed: () => {context.read<CalculatorBloc>().add(const CalculatorEvent.clear())}, child: const Text('c')),
                     )
                 ),
                 Expanded(
                     child: SizedBox(
                       height: 80,
                       child: OutlinedButton(
-                          onPressed: () => {context.read<CalculatorBloc>().add(Equal())}, child: const Text('=')),
+                          onPressed: () => {context.read<CalculatorBloc>().add(const CalculatorEvent.equal())}, child: const Text('=')),
                     )
                 ),
                 const Expanded(

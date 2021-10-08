@@ -1,6 +1,7 @@
+import 'package:calculator/feature/calculator/domain/usecases/calculator_use_case.dart';
+import 'package:calculator/feature/calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'calculation.dart';
 import 'feature/calculator/presentation/pages/calculator_page.dart';
 
 void main() {
@@ -49,8 +50,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context)=>CalculatorBloc(),
+    return BlocProvider<CalculatorBloc>(
+      create: (BuildContext context)=>CalculatorBloc(calculatorUseCase: CalculatorUseCase()),
       child: CalculatorView(title: title),
     );
   }

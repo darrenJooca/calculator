@@ -11,6 +11,7 @@ class CalculatorUseCase{
 
 
   String numbers(String num){
+    debugPrint('use_case  $num');
     if ((_num1.isEmpty || _num1 == '0') && num == '0') {
       return _result;
     }
@@ -111,5 +112,6 @@ class CalculatorUseCase{
     }
     return _result;
   }
+
 
 }

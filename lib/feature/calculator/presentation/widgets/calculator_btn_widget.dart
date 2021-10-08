@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../calculation.dart';
+import 'package:calculator/feature/calculator/presentation/bloc/calculator_bloc.dart';
 
 
 class NumButton extends StatelessWidget{
@@ -16,7 +16,7 @@ class NumButton extends StatelessWidget{
     return SizedBox(
         height: 80,
         child: OutlinedButton(
-            onPressed: () => {context.read<CalculatorBloc>().add(Number(num: num))},
+            onPressed: () => {context.read<CalculatorBloc>().add(CalculatorEvent.numbers(num))},
             child: Text(num)));
   }
 
@@ -32,7 +32,7 @@ class OperatorButton extends StatelessWidget{
     return SizedBox(
         height: 80,
         child: OutlinedButton(
-            onPressed: () => {context.read<CalculatorBloc>().add(Operators(op: op))},
+            onPressed: () => {context.read<CalculatorBloc>().add(CalculatorEvent.operators(op))},
             child: Text(op)));
   }
 }
