@@ -17,6 +17,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       : _calculatorUseCase = calculatorUseCase,
         super(const CalculatorState.result('0'));
 
+//test
 
   @override
   Stream<CalculatorState> mapEventToState(
